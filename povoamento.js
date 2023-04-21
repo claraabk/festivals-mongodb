@@ -6,6 +6,7 @@ db.festivals.insertMany([
     {
         name: "The Town",
         location: "São Paulo",
+        festival_id: 1,
         startDate: new Date("2023-09-02"),
         endDate: new Date("2023-09-10")
 
@@ -13,6 +14,7 @@ db.festivals.insertMany([
     {
         name: "Lollapalooza",
         location: "São Paulo",
+        festival_id: 2,
         startDate: new Date("2023-10-31"),
         endDate: new Date("2023-11-06")
 
@@ -20,6 +22,7 @@ db.festivals.insertMany([
     {
         name: "Rock in Rio",
         location: "Rio de Janeiro",
+        festival_id: 3,
         startDate: new Date("2022-09-12"),
         endDate: new Date("2022-09-11")
 
@@ -27,6 +30,7 @@ db.festivals.insertMany([
     {
         name: "Primavera Sound",
         location: "São Paulo",
+        festival_id: 4,
         startDate: new Date("2022-09-12"),
         endDate: new Date("2022-09-11")
 
@@ -34,6 +38,7 @@ db.festivals.insertMany([
     {
         name: "Coachella",
         location: "Indio",
+        festival_id: 5,
         startDate: new Date("2023-04-14"),
         endDate: new Date("2023-04-23")
 
@@ -50,47 +55,47 @@ db.stages.insertMany([
     },
     {
         name: "The one",
-        capacity: 100.000,
+        capacity: 50.000,
         festival: db.festivals.findOne({name: "The Town"})
     },
     {
         name: "Factory",
-        capacity: 100.000,
+        capacity: 75.000,
         festival: db.festivals.findOne({name: "The Town"})
     },
     {
         name: "New Dance Order",
-        capacity: 100.000,
+        capacity: 120.000,
         festival: db.festivals.findOne({name: "The Town"})
     },
     {
         name: "Perry's by Johnnie Walker Blonde",
-        capacity: 100.000,
+        capacity: 80.000,
         festival: db.festivals.findOne({name: "Lollapalooza"})
     },
     {
         name: "Budweiser",
-        capacity: 100.000,
+        capacity: 95.000,
         festival: db.festivals.findOne({name: "Lollapalooza"})
     },
     {
         name: "Adidas",
-        capacity: 100.000,
+        capacity: 130.000,
         festival: db.festivals.findOne({name: "Lollapalooza"})
     },
     {
         name: "Chevrolet",
-        capacity: 100.000,
+        capacity: 150.000,
         festival: db.festivals.findOne({name: "Lollapalooza"})
     },
     {
         name: "Palco Mundo",
-        capacity: 100.000,
+        capacity: 200.000,
         festival: db.festivals.findOne({name: "Rock in Rio"})
     },
     {
         name: "Palco Sunset",
-        capacity: 100.000,
+        capacity: 150.000,
         festival: db.festivals.findOne({name: "Rock in Rio"})
     },
     {
@@ -100,12 +105,12 @@ db.stages.insertMany([
     },
     {
         name: "Palco Primavera",
-        capacity: 100.000,
+        capacity: 150.000,
         festival: db.festivals.findOne({name: "Primavera Sound"})
     },
     {
         name: "Main stage",
-        capacity: 100.000,
+        capacity: 300.000,
         festival: db.festivals.findOne({name: "Coachella"})
     }
 ]);
@@ -117,17 +122,24 @@ db.artists.insertMany([
         name: 'Post Malone',
         type: 'Singer',
         genre: 'Hip-hop',
-        festival: db.festivals.findOne({name: "The Town"}),
+        contactInfo: 'pmalone@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "The Town"}),
+            db.festivals.findOne({name: "Primavera Sound"})
+        ],
         schedule: {
             day: new Date("2023-09-02"),
-            stage: db.stages.findOne({name: "Skyline"})            
+            stage: db.stages.findOne({name: "Skyline"})             
         }
     },
     {
         name: 'Demi Lovato',
         type: 'Singer',
         genre: 'Pop',
-        festival: db.festivals.findOne({name: "The Town"}),
+        contactInfo: 'demi@outlook.com',
+        festivals: [
+            db.festivals.findOne({name: "The Town"})
+        ],
         schedule: {
             day: new Date("2023-09-02"),
             stage: db.stages.findOne({name: "Skyline"})            
@@ -137,7 +149,10 @@ db.artists.insertMany([
         name: 'Teto',
         type: 'Singer',
         genre: 'Rap',
-        festival: db.festivals.findOne({name: "The Town"}),
+        contactInfo: 'teto@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "The Town"})
+        ],
         schedule: {
             day: new Date("2023-09-02"),
             stage: db.stages.findOne({name: "Factory"})            
@@ -147,57 +162,65 @@ db.artists.insertMany([
         name: 'Seu Jorge',
         type: 'Singer',
         genre: 'MPB',
-        festival: db.festivals.findOne({name: "The Town"}),
+        contactInfo: 'emailDaMinhaMulher@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "The Town"}),
+            db.festivals.findOne({name: "Rock in Rio"})
+        ],
         schedule: {
             day: new Date("2023-09-03"),
-            stage: db.stages.findOne({name: "The one"})            
+            stage: db.stages.findOne({name: "Factory"})         
         }
     },
     {
         name: 'Lion Babe',
         type: 'DJ',
         genre: 'Eletronic',
-        festival: db.festivals.findOne({name: "The Town"}),
+        contactInfo: 'babeLion@yahoo.com',
+        festivals: [
+            db.festivals.findOne({name: "The Town"})
+        ],
         schedule: {
             day: new Date("2023-09-10"),
-            stage: db.stages.findOne({name: "New Dance Order"})            
+            stage: db.stages.findOne({name: "New Dance Order"})              
         }
     },
     {
         name: 'Bruno Mars',
         type: 'Singer',
         genre: 'Pop',
-        festival: db.festivals.findOne({name: "The Town"}),
+        contactInfo: 'stopWaitAMinute@outlook.com',
+        festivals: [
+            db.festivals.findOne({name: "The Town"})
+        ],
         schedule: {
             day: new Date("2023-09-10"),
-            stage: db.stages.findOne({name: "Skyline"})            
-        }
-    },
-    {
-        name: 'Bruno Mars',
-        type: 'Singer',
-        genre: 'Pop',
-        festival: db.festivals.findOne({name: "The Town"}),
-        schedule: {
-            day: new Date("2023-09-10"),
-            stage: db.stages.findOne({name: "Skyline"})            
+            stage: db.stages.findOne({name: "Skyline"})           
         }
     },
     {
         name: 'KVSH',
         type: 'DJ',
         genre: 'Eletronic',
-        festival: db.festivals.findOne({name: "Lollapalooza"}),
+        contactInfo: 'kvsh@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"})
+        ],
         schedule: {
             day: new Date("2023-03-26"),
-            stage: db.stages.findOne({name: "Perry's by Johnnie Walker Blonde"})            
+            stage: db.stages.findOne({name: "Perry's by Johnnie Walker Blonde"})       
         }
     },
     {
         name: 'Liu',
         type: 'DJ',
         genre: 'Eletronic',
-        festival: db.festivals.findOne({name: "Lollapalooza"}),
+        contactInfo: 'escreviu@yahoo.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"}),
+            db.festivals.findOne({name: "The Town"}),
+            db.festivals.findOne({name: "Rock in Rio"})
+        ],
         schedule: {
             day: new Date("2023-03-25"),
             stage: db.stages.findOne({name: "Perry's by Johnnie Walker Blonde"})            
@@ -207,7 +230,11 @@ db.artists.insertMany([
         name: 'Sofi Tukker',
         type: 'DJ',
         genre: 'Eletronic',
-        festival: db.festivals.findOne({name: "Lollapalooza"}),
+        contactInfo: 'stukker@yahoo.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"}),
+            db.festivals.findOne({name: "Rock in Rio"})
+        ],
         schedule: {
             day: new Date("2023-03-25"),
             stage: db.stages.findOne({name: "Adidas"})            
@@ -217,7 +244,10 @@ db.artists.insertMany([
         name: 'Tame Impala',
         type: 'Singer',
         genre: 'Indie',
-        festival: db.festivals.findOne({name: "Lollapalooza"}),
+        contactInfo: 'wildImpala@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"})
+        ],
         schedule: {
             day: new Date("2023-03-25"),
             stage: db.stages.findOne({name: "Chevrolet"})            
@@ -227,7 +257,12 @@ db.artists.insertMany([
         name: 'Twenty One Pilots',
         type: 'Band',
         genre: 'Rock',
-        festival: db.festivals.findOne({name: "Lollapalooza"}),
+        contactInfo: 'top@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"}),
+            db.festivals.findOne({name: "The Town"}),
+            db.festivals.findOne({name: "Rock in Rio"})
+        ],
         schedule: {
             day: new Date("2023-03-25"),
             stage: db.stages.findOne({name: "Budweiser"})            
@@ -237,7 +272,13 @@ db.artists.insertMany([
         name: 'Rosalía',
         type: 'Singer',
         genre: 'Reggaeton',
-        festival: db.festivals.findOne({name: "Lollapalooza"}),
+        contactInfo: 'rose@outlook.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"}),
+            db.festivals.findOne({name: "The Town"}),
+            db.festivals.findOne({name: "Rock in Rio"}),
+            db.festivals.findOne({name: "Primavera Sound"})
+        ],
         schedule: {
             day: new Date("2023-03-26"),
             stage: db.stages.findOne({name: "Chevrolet"})            
@@ -247,17 +288,12 @@ db.artists.insertMany([
         name: 'Billie Ellish',
         type: 'Singer',
         genre: 'Pop',
-        festival: db.festivals.findOne({name: "Lollapalooza"}),
-        schedule: {
-            day: new Date("2023-03-24"),
-            stage: db.stages.findOne({name: "Budweiser"})            
-        }
-    },
-    {
-        name: 'Billie Ellish',
-        type: 'Singer',
-        genre: 'Pop',
-        festival: db.festivals.findOne({name: "Lollapalooza"}),
+        contactInfo: 'billie@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"}),
+            db.festivals.findOne({name: "Rock in Rio"}),
+            db.festivals.findOne({name: "Primavera Sound"})
+        ],
         schedule: {
             day: new Date("2023-03-24"),
             stage: db.stages.findOne({name: "Budweiser"})            
@@ -267,7 +303,11 @@ db.artists.insertMany([
         name: 'Xamã',
         type: 'Singer',
         genre: 'Rap',
-        festival: db.festivals.findOne({name: "Rock in Rio"}),
+        contactInfo: 'chama@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "The Town"}),
+            db.festivals.findOne({name: "Rock in Rio"})
+        ],
         schedule: {
             day: new Date("2022-09-03"),
             stage: db.stages.findOne({name: "Palco Sunset"})            
@@ -277,7 +317,10 @@ db.artists.insertMany([
         name: 'Gilberto Gil',
         type: 'Singer',
         genre: 'MPB',
-        festival: db.festivals.findOne({name: "Rock in Rio"}),
+        contactInfo: 'gg@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"})
+        ],
         schedule: {
             day: new Date("2022-09-04"),
             stage: db.stages.findOne({name: "Palco Sunset"})            
@@ -287,7 +330,11 @@ db.artists.insertMany([
         name: 'Luísa Sonza',
         type: 'Singer',
         genre: 'Pop',
-        festival: db.festivals.findOne({name: "Rock in Rio"}),
+        contactInfo: 'modoTurbo@yahoo.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"}),
+            db.festivals.findOne({name: "Primavera Sound"})
+        ],
         schedule: {
             day: new Date("2022-09-04"),
             stage: db.stages.findOne({name: "Palco Sunset"})            
@@ -297,7 +344,13 @@ db.artists.insertMany([
         name: 'Emicida',
         type: 'Singer',
         genre: 'Rap',
-        festival: db.festivals.findOne({name: "Rock in Rio"}),
+        contactInfo: 'passarinhos@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"}),
+            db.festivals.findOne({name: "The Town"}),
+            db.festivals.findOne({name: "Rock in Rio"}),
+            db.festivals.findOne({name: "Primavera Sound"})
+        ],
         schedule: {
             day: new Date("2022-09-04"),
             stage: db.stages.findOne({name: "Palco Sunset"})            
@@ -307,7 +360,10 @@ db.artists.insertMany([
         name: 'Justin Bieber',
         type: 'Singer',
         genre: 'Pop',
-        festival: db.festivals.findOne({name: "Rock in Rio"}),
+        contactInfo: 'babybabybabyoh@outlook.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"})
+        ],
         schedule: {
             day: new Date("2022-09-04"),
             stage: db.stages.findOne({name: "Palco Mundo"})            
@@ -317,7 +373,11 @@ db.artists.insertMany([
         name: 'Green Day',
         type: 'Band',
         genre: 'Rock',
-        festival: db.festivals.findOne({name: "Rock in Rio"}),
+        contactInfo: 'maryjane420@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "The Town"}),
+            db.festivals.findOne({name: "Rock in Rio"})
+        ],
         schedule: {
             day: new Date("2022-09-09"),
             stage: db.stages.findOne({name: "Palco Mundo"})            
@@ -327,7 +387,12 @@ db.artists.insertMany([
         name: 'Avril Lavigne',
         type: 'Singer',
         genre: 'Rock',
-        festival: db.festivals.findOne({name: "Rock in Rio"}),
+        contactInfo: 'clone@yahoo.com',
+        festivals: [
+            db.festivals.findOne({name: "The Town"}),
+            db.festivals.findOne({name: "Rock in Rio"}),
+            db.festivals.findOne({name: "Primavera Sound"})
+        ],
         schedule: {
             day: new Date("2022-09-09"),
             stage: db.stages.findOne({name: "Palco Sunset"})            
@@ -337,7 +402,13 @@ db.artists.insertMany([
         name: 'Coldplay',
         type: 'Band',
         genre: 'Pop',
-        festival: db.festivals.findOne({name: "Rock in Rio"}),
+        contactInfo: 'hotpause@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"}),
+            db.festivals.findOne({name: "The Town"}),
+            db.festivals.findOne({name: "Rock in Rio"}),
+            db.festivals.findOne({name: "Primavera Sound"})
+        ],
         schedule: {
             day: new Date("2022-09-10"),
             stage: db.stages.findOne({name: "Palco Mundo"})            
@@ -347,7 +418,11 @@ db.artists.insertMany([
         name: 'Dua Lipa',
         type: 'Singer',
         genre: 'Pop',
-        festival: db.festivals.findOne({name: "Rock in Rio"}),
+        contactInfo: 'triplelilipa@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"}),
+            db.festivals.findOne({name: "The Town"})
+        ],
         schedule: {
             day: new Date("2022-09-11"),
             stage: db.stages.findOne({name: "Palco Mundo"})            
@@ -357,17 +432,12 @@ db.artists.insertMany([
         name: 'Arctic Monkeys',
         type: 'Band',
         genre: 'Rock',
-        festival: db.festivals.findOne({name: "Primavera Sound"}),
-        schedule: {
-            day: new Date("2022-11-05"),
-            stage: db.stages.findOne({name: "Palco Beck's"})            
-        }
-    },
-    {
-        name: 'Arctic Monkeys',
-        type: 'Band',
-        genre: 'Rock',
-        festival: db.festivals.findOne({name: "Primavera Sound"}),
+        contactInfo: 'frozenbananas@outlook.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"}),
+            db.festivals.findOne({name: "The Town"}),
+            db.festivals.findOne({name: "Primavera Sound"})
+        ],
         schedule: {
             day: new Date("2022-11-05"),
             stage: db.stages.findOne({name: "Palco Beck's"})            
@@ -377,7 +447,10 @@ db.artists.insertMany([
         name: 'Bjork',
         type: 'Singer',
         genre: 'Indie',
-        festival: db.festivals.findOne({name: "Primavera Sound"}),
+        contactInfo: 'bj@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "Primavera Sound"})
+        ],
         schedule: {
             day: new Date("2022-11-05"),
             stage: db.stages.findOne({name: "Palco Primavera"})            
@@ -387,7 +460,10 @@ db.artists.insertMany([
         name: 'Beach House',
         type: 'Band',
         genre: 'Indie',
-        festival: db.festivals.findOne({name: "Primavera Sound"}),
+        contactInfo: 'poolkitchen@yahoo.com',
+        festivals: [
+            db.festivals.findOne({name: "Primavera Sound"})
+        ],
         schedule: {
             day: new Date("2022-11-05"),
             stage: db.stages.findOne({name: "Palco Primavera"})            
@@ -397,7 +473,10 @@ db.artists.insertMany([
         name: 'Charli XCX',
         type: 'Singer',
         genre: 'Pop',
-        festival: db.festivals.findOne({name: "Primavera Sound"}),
+        contactInfo: 'xcx@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "The Town"})
+        ],
         schedule: {
             day: new Date("2022-11-06"),
             stage: db.stages.findOne({name: "Palco Beck's"})            
@@ -407,7 +486,11 @@ db.artists.insertMany([
         name: 'Travis Scott',
         type: 'Singer',
         genre: 'Hip-hop',
-        festival: db.festivals.findOne({name: "Primavera Sound"}),
+        contactInfo: 'ts@outlook.com',
+        festivals: [
+            db.festivals.findOne({name: "Rock in Rio"}),
+            db.festivals.findOne({name: "Primavera Sound"})
+        ],
         schedule: {
             day: new Date("2022-11-06"),
             stage: db.stages.findOne({name: "Palco Beck's"})            
@@ -417,17 +500,12 @@ db.artists.insertMany([
         name: 'Phoebe Bridgers',
         type: 'Singer',
         genre: 'Indie',
-        festival: db.festivals.findOne({name: "Primavera Sound"}),
-        schedule: {
-            day: new Date("2022-11-06"),
-            stage: db.stages.findOne({name: "Palco Primavera"})            
-        }
-    },
-    {
-        name: 'Phoebe Bridgers',
-        type: 'Singer',
-        genre: 'Indie',
-        festival: db.festivals.findOne({name: "Primavera Sound"}),
+        contactInfo: 'pb@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"}),
+            db.festivals.findOne({name: "The Town"}),
+            db.festivals.findOne({name: "Primavera Sound"})
+        ],
         schedule: {
             day: new Date("2022-11-06"),
             stage: db.stages.findOne({name: "Palco Primavera"})            
@@ -437,6 +515,11 @@ db.artists.insertMany([
         name: 'Bad Bunny',
         type: 'Singer',
         genre: 'Reggaeton',
+        festivals: [
+            db.festivals.findOne({name: "The Town"}),
+            db.festivals.findOne({name: "Rock in Rio"}),
+            db.festivals.findOne({name: "Primavera Sound"})
+        ],
         festival: db.festivals.findOne({name: "Coachella"}),
         schedule: {
             day: new Date("2023-04-14"),
@@ -447,7 +530,10 @@ db.artists.insertMany([
         name: 'Gorillaz',
         type: 'Band',
         genre: 'Indie',
-        festival: db.festivals.findOne({name: "Coachella"}),
+        contactInfo: 'mcbinladen@yahoo.com',
+        festivals: [
+            db.festivals.findOne({name: "Coachella"})
+        ],
         schedule: {
             day: new Date("2023-04-21"),
             stage: db.stages.findOne({name: "Main stage"})            
@@ -457,7 +543,14 @@ db.artists.insertMany([
         name: 'Blackpink',
         type: 'Band',
         genre: 'Kpop',
-        festival: db.festivals.findOne({name: "Coachella"}),
+        contactInfo: 'pinkblack@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "Lollapalooza"}),
+            db.festivals.findOne({name: "The Town"}),
+            db.festivals.findOne({name: "Rock in Rio"}),
+            db.festivals.findOne({name: "Primavera Sound"}),
+            db.festivals.findOne({name: "Coachella"})
+        ],
         schedule: {
             day: new Date("2023-04-15"),
             stage: db.stages.findOne({name: "Main stage"})            
@@ -467,7 +560,11 @@ db.artists.insertMany([
         name: 'Remi Wolf',
         type: 'Singer',
         genre: 'Pop',
-        festival: db.festivals.findOne({name: "Coachella"}),
+        contactInfo: 'rw@outlook.com',
+        festivals: [
+            db.festivals.findOne({name: "Primavera Sound"}),
+            db.festivals.findOne({name: "Coachella"})
+        ],
         schedule: {
             day: new Date("2023-04-22"),
             stage: db.stages.findOne({name: "Main stage"})            
@@ -477,7 +574,12 @@ db.artists.insertMany([
         name: 'Frank Ocean',
         type: 'Singer',
         genre: 'Soul',
-        festival: db.festivals.findOne({name: "Coachella"}),
+        contactInfo: 'francissky@outlook.com',
+        festivals: [
+            db.festivals.findOne({name: "Rock in Rio"}),
+            db.festivals.findOne({name: "Primavera Sound"}),
+            db.festivals.findOne({name: "Coachella"})
+        ],
         schedule: {
             day: new Date("2023-04-16"),
             stage: db.stages.findOne({name: "Main stage"})            
@@ -487,7 +589,10 @@ db.artists.insertMany([
         name: 'Kali Uchis',
         type: 'Singer',
         genre: 'R&B',
-        festival: db.festivals.findOne({name: "Coachella"}),
+        contactInfo: 'kali@gmail.com',
+        festivals: [
+            db.festivals.findOne({name: "Coachella"})
+        ],
         schedule: {
             day: new Date("2023-04-23"),
             stage: db.stages.findOne({name: "Main stage"})            
