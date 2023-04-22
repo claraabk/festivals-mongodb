@@ -7,11 +7,11 @@ db.artists.findOne({genre: "Indie"});
 //COUNT: retorna a quantidade de festivais que vão ocorrer
 db.festivals.count();
 
+// ESSE NÃO FUNCIONOU
 //SET e UPDATE: Twenty one pilots trocou o genero mais uma vez...
 db.festivals.updateOne({name: "Twenty One Pilots"}, {$set:{"genre": "Indie Pop"}});
 
-//SORT: ordenando os artistas por ordem alfabetica. Mostrando antes e depois
-db.artists.find().pretty();
+//SORT: ordenando os artistas por ordem alfabetica.
 db.artists.find().sort({name: 1}).pretty();
 
 //RENAMECOLLECTION: mudando o nome da coleção artists para performers 
@@ -22,7 +22,7 @@ db.stages.aggregate([
     {
         $group: {
             _id: "$festival",
-            total_wins: {
+            total_capacity: {
                 $sum: "$capacity"
             }
         }
@@ -30,15 +30,13 @@ db.stages.aggregate([
 ]);
 
 //GTE: retorna todas os palcos com 100.000 ou mais de capacidade
-db.stages.find({capacity: {$gte: 100.000}}).pretty();
+db.stages.find({capacity: {$gte: 100000}}).pretty();
 
 //TEXT e SEARCH: lista todos os artistas que possuem email do google
 db.performers.createIndex({contactInfo: "text"});
 db.performers.find({$text: {$search: "\"gmail\""}}).pretty();
 
-//NAO TEM UNSET NA NOSSA CHECKLIST
-//UNSET e EXISTS: o palco Budweiser nao vai mais ser usado no festival, 
-//vamos remove-lo e lista-lo novamente
+//EXISTS: o palco Budweiser nao vai mais ser usado no festival, vamos remove-lo e lista-lo novamente
 db.stages.updateOne({name: "Budweiser"}, {$unset: {"festival": null}});
 db.aulas.find({festival: {$exists: false}}).pretty();
 
@@ -46,11 +44,13 @@ db.aulas.find({festival: {$exists: false}}).pretty();
 db.performers.find({festivals:{$size: 3}}).pretty();
 
 //AVG: retorna a media da capacidade dos palcos
+db.stages.findOne({capacity: $max});
+
 db.stages.aggregate([
     {
         $group:
             {
-                _id: "$name",
+                _id: null,
                 avg_capacity: {$avg: "$capacity"}
             }
     }
@@ -61,7 +61,7 @@ db.stages.aggregate([
      {
         $group:
             {
-                _id: "$name",
+                _id: null,
                 biggest: {$max: "$capacity"},
             }
     }
@@ -79,12 +79,13 @@ db.stages.aggregate([
             name: 1,
             capacity:
             {
-                $cond: {if: {$gte: ["$capacity", 150.000]}, then: "Big", else: "Average"}
+                $cond: {if: {$gte: ["$capacity", 150000]}, then: "Big", else: "Average"}
             } 
          }
     }
 ]);
 
+// ESSE NÃO FUNCIONA
 //ALL: lista os artistas que vão tocar nos festivais citados
 db.performers.find({festivals: {$all: [
     db.festivals.findOne({name: "The Town"})._id,
@@ -103,8 +104,8 @@ db.stages.aggregate([
     },
     {$limit: 1}
 ]).pretty();
-// NAO TEM EACH NA NOSSA CHECKLIST
-//ADDTOSET e EACH: Twenty One Pilots agora vai tocar no coachella e no primavera sound
+
+//ADDTOSET: Twenty One Pilots agora vai tocar no coachella e no primavera sound
 db.performers.updateMany({name: "Twenty One Pilots"}, {$addToSet:
     {
         festivals:
@@ -124,6 +125,7 @@ db.festivals.find({$where: function() {
     }
 ).pretty();
 
+// A ULTIMA LINHA NAO FUNCIONOU
 //MAPREDUCE: criando duas funções, uma map e uma reduce, para listar os palcos e suas respectivas capacidades 
 var mapFunction2 = function() {
     emit (this.name, this.capacity);
@@ -138,6 +140,7 @@ db.aulas.mapReduce (
 );
 db.mapReduce_ex.find().sort({_id: 1});
 
+// ESSA DEU ERRO
 //FILTER: lista os ultimos shows agendados para um artista
 db.performers.aggregate([
     {
@@ -155,8 +158,9 @@ db.performers.aggregate([
     }
  ]);
 
+// ESSE DEU ERRO
  //SAVE: salvando um novo festival
-db.clientes.save({
+db.festivals.save({
     name: "Numanice",
     location: "São Paulo",
     festival_id: 6,

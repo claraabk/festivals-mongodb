@@ -50,67 +50,67 @@ db.createCollection("stages");
 db.stages.insertMany([
     {
         name: "Skyline",
-        capacity: 100.000,
+        capacity: 100000,
         festival: db.festivals.findOne({name: "The Town"})
     },
     {
         name: "The one",
-        capacity: 50.000,
+        capacity: 50000,
         festival: db.festivals.findOne({name: "The Town"})
     },
     {
         name: "Factory",
-        capacity: 75.000,
+        capacity: 75000,
         festival: db.festivals.findOne({name: "The Town"})
     },
     {
         name: "New Dance Order",
-        capacity: 120.000,
+        capacity: 120000,
         festival: db.festivals.findOne({name: "The Town"})
     },
     {
         name: "Perry's by Johnnie Walker Blonde",
-        capacity: 80.000,
+        capacity: 80000,
         festival: db.festivals.findOne({name: "Lollapalooza"})
     },
     {
         name: "Budweiser",
-        capacity: 95.000,
+        capacity: 95000,
         festival: db.festivals.findOne({name: "Lollapalooza"})
     },
     {
         name: "Adidas",
-        capacity: 130.000,
+        capacity: 130000,
         festival: db.festivals.findOne({name: "Lollapalooza"})
     },
     {
         name: "Chevrolet",
-        capacity: 150.000,
+        capacity: 150000,
         festival: db.festivals.findOne({name: "Lollapalooza"})
     },
     {
         name: "Palco Mundo",
-        capacity: 200.000,
+        capacity: 200000,
         festival: db.festivals.findOne({name: "Rock in Rio"})
     },
     {
         name: "Palco Sunset",
-        capacity: 150.000,
+        capacity: 150000,
         festival: db.festivals.findOne({name: "Rock in Rio"})
     },
     {
         name: "Palco Beck's",
-        capacity: 100.000,
+        capacity: 100000,
         festival: db.festivals.findOne({name: "Primavera Sound"})
     },
     {
         name: "Palco Primavera",
-        capacity: 150.000,
+        capacity: 150000,
         festival: db.festivals.findOne({name: "Primavera Sound"})
     },
     {
         name: "Main stage",
-        capacity: 300.000,
+        capacity: 300000,
         festival: db.festivals.findOne({name: "Coachella"})
     }
 ]);
