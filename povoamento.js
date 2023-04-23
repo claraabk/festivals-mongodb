@@ -1,5 +1,7 @@
 db.dropDatabase();
 
+use gdi_mongoProject;
+
 db.createCollection("festivals");
 
 db.festivals.insertMany([

@@ -7,7 +7,6 @@ db.artists.findOne({ genre: "Indie" });
 //COUNT: retorna a quantidade de festivais que vão ocorrer
 db.festivals.count();
 
-// ESSE NÃO FUNCIONOU
 //SET e UPDATE: Twenty one pilots trocou o genero mais uma vez...
 db.artists.updateOne(
 	{ name: "Twenty One Pilots" },
@@ -96,13 +95,11 @@ const theTownFestival = db.festivals.findOne({ name: "The Town" });
 const rockInRioFestival = db.festivals.findOne({ name: "Rock in Rio" });
 
 // Fazer a consulta usando os _id dos festivais
-db.performers
-	.find({
-		festivals: {
-			$all: [theTownFestival._id, rockInRioFestival._id],
+db.performers.find({
+	festivals: {
+		$all: [theTownFestival._id, rockInRioFestival._id],
 		},
-	})
-	.pretty();
+	}).pretty();
 
 //LOOKUP e LIMIT: lista 1 palco e quais outros palcos tem a mesma capacidade
 db.stages
@@ -154,7 +151,6 @@ var reduceFunction2 = function (name, capacity) {
 db.aulas.mapReduce(mapFunction2, reduceFunction2, { out: "mapReduce_ex" });
 db.mapReduce_ex.find().sort({ _id: 1 });
 
-// ESSA DEU ERRO
 //FILTER: lista os ultimos shows agendados para um artista
 db.performers.aggregate([
 	{
@@ -165,7 +161,7 @@ db.performers.aggregate([
 				$filter: {
 					input: "$festivals",
 					as: "last_festivals",
-					cond: { $gte: ["$$festivals.festival_id", 2] },
+					cond: { $gte: ["$$last_festivals.festival_id", 2] },
 				},
 			},
 		},
