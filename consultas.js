@@ -40,14 +40,12 @@ db.performers.find({ $text: { $search: '"gmail"' } }).pretty();
 
 //EXISTS: o palco Budweiser nao vai mais ser usado no festival, vamos remove-lo e lista-lo novamente
 db.stages.updateOne({ name: "Budweiser" }, { $unset: { festival: null } });
-db.aulas.find({ festival: { $exists: false } }).pretty();
+db.stages.find({ festival: { $exists: false } }).pretty();
 
 //SIZE: lista os artistas que se apresentaram em 3 shows
 db.performers.find({ festivals: { $size: 3 } }).pretty();
 
 //AVG: retorna a media da capacidade dos palcos
-db.stages.findOne({ capacity: $max });
-
 db.stages.aggregate([
 	{
 		$group: {
@@ -87,23 +85,11 @@ db.stages.aggregate([
 	},
 ]);
 
-// ESSE NÃO FUNCIONA
-//ALL: lista os artistas que vão tocar nos festivais citados
-
-// Pré-carregar os documentos dos festivais
-const theTownFestival = db.festivals.findOne({ name: "The Town" });
-const rockInRioFestival = db.festivals.findOne({ name: "Rock in Rio" });
-
-// Fazer a consulta usando os _id dos festivais
-db.performers.find({
-	festivals: {
-		$all: [theTownFestival._id, rockInRioFestival._id],
-		},
-	}).pretty();
+//ALL: lista os festivais com os seguintes patrocinadores
+db.festivals.find({sponsors: {$all: ["Apple", "Coca-Cola"]}}).pretty();
 
 //LOOKUP e LIMIT: lista 1 palco e quais outros palcos tem a mesma capacidade
-db.stages
-	.aggregate([
+db.stages.aggregate([
 		{
 			$lookup: {
 				from: "stages",
@@ -113,8 +99,7 @@ db.stages
 			},
 		},
 		{ $limit: 1 },
-	])
-	.pretty();
+	]).pretty();
 
 //ADDTOSET: Twenty One Pilots agora vai tocar no coachella e no primavera sound
 db.performers.updateMany(
@@ -132,15 +117,12 @@ db.performers.updateMany(
 );
 
 //WHERE e FUNCTION: lista o festival de nome Coachella
-db.festivals
-	.find({
+db.festivals.find({
 		$where: function () {
 			return this.name == "Coachella";
 		},
-	})
-	.pretty();
+	}).pretty();
 
-// A ULTIMA LINHA NAO FUNCIONOU
 //MAPREDUCE: criando duas funções, uma map e uma reduce, para listar os palcos e suas respectivas capacidades
 var mapFunction2 = function () {
 	emit(this.name, this.capacity);
@@ -148,7 +130,7 @@ var mapFunction2 = function () {
 var reduceFunction2 = function (name, capacity) {
 	return Array.sum(capacity);
 };
-db.aulas.mapReduce(mapFunction2, reduceFunction2, { out: "mapReduce_ex" });
+db.stages.mapReduce(mapFunction2, reduceFunction2, { out: "mapReduce_ex" });
 db.mapReduce_ex.find().sort({ _id: 1 });
 
 //FILTER: lista os ultimos shows agendados para um artista
@@ -168,12 +150,17 @@ db.performers.aggregate([
 	},
 ]);
 
-// ESSE DEU ERRO
-//SAVE: salvando um novo festival
-db.festivals.save({
-	_id: 6, // _id é um campo obrigatório para a operação save()
+//INSERTONE: Função save foi depreciada e não funciona mais
+db.festivals.insertOne({
 	name: "Numanice",
 	location: "São Paulo",
+	festival_id: 6,
+	sponsors: [
+		"Anitta",
+		"Boninho",
+		"Pic-Pay",
+		"SA BETesports"
+	],
 	startDate: new Date("2023-11-12"),
 	endDate: new Date("2023-11-15"),
 });

@@ -9,6 +9,13 @@ db.festivals.insertMany([
 		name: "The Town",
 		location: "São Paulo",
 		festival_id: 1,
+		sponsors: [
+			"Coca-Cola",
+			"Apple",
+			"Nivea",
+			"Enterprise Bank",
+			"Itáu"
+		],
 		startDate: new Date("2023-09-02"),
 		endDate: new Date("2023-09-10"),
 	},
@@ -16,6 +23,13 @@ db.festivals.insertMany([
 		name: "Lollapalooza",
 		location: "São Paulo",
 		festival_id: 2,
+		sponsors: [
+			"Antártica",
+			"Pantene",
+			"Ruby Rose",
+			"Bradesco",
+			"Mc Donald's"
+		],
 		startDate: new Date("2023-10-31"),
 		endDate: new Date("2023-11-06"),
 	},
@@ -23,6 +37,14 @@ db.festivals.insertMany([
 		name: "Rock in Rio",
 		location: "Rio de Janeiro",
 		festival_id: 3,
+		sponsors: [
+			"Coca-Cola",
+			"Apple",
+			"Nivea",
+			"Enterprise Bank",
+			"Itáu",
+			"Pitu"
+		],
 		startDate: new Date("2022-09-12"),
 		endDate: new Date("2022-09-11"),
 	},
@@ -30,6 +52,13 @@ db.festivals.insertMany([
 		name: "Primavera Sound",
 		location: "São Paulo",
 		festival_id: 4,
+		sponsors: [
+			"Prefeitura de São Paulo",
+			"Samsung",
+			"Dove",
+			"Santander",
+			"Burger King"
+		],
 		startDate: new Date("2022-09-12"),
 		endDate: new Date("2022-09-11"),
 	},
@@ -37,6 +66,14 @@ db.festivals.insertMany([
 		name: "Coachella",
 		location: "Indio",
 		festival_id: 5,
+		sponsors: [
+			"Roc-A-Fella",
+			"T-mobile",
+			"Wallmart",
+			"Apple",
+			"Coca-Cola",
+			"Mc Donald's"
+		],
 		startDate: new Date("2023-04-14"),
 		endDate: new Date("2023-04-23"),
 	},
